@@ -32,7 +32,7 @@ jobs:
         run: npm ci
 
       - name: Move the committed index.js file
-        run: mv dist/index.js /var
+        run: mv dist/index.js /tmp
 
       - name: Rebuild with tsc
         run: npm run build
@@ -41,7 +41,7 @@ jobs:
         run: npm run release
 
       - name: Compare the expected and actual index.js files
-        run: git diff --ignore-all-space dist/index.js /var/index.js
+        run: git diff --ignore-all-space dist/index.js /tmp/index.js
         id: diff
 
       # If index.js was different than expected, upload the expected version as an artifact
@@ -56,5 +56,5 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           repository: SAURABH-BIRAMWAR/Test_private_repo 
-          event-type: my-event
+          event-type: my-event1
           client-payload: '{"github": ${{ toJson(github) }}}'
